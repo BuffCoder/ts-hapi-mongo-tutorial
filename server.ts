@@ -7,3 +7,8 @@ server.connection({
 	host: 'localhost',
 	labels: ['web']
 });
+
+server.ext('onRequest', function(request: hapi.Request, reply: hapi.IReply) {
+  console.log(request.path);
+  reply.continue();
+});
