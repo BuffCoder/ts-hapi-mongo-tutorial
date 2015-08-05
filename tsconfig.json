@@ -1,0 +1,13 @@
+{
+	"version": "1.5.3",
+	"compilerOptions": {
+		"declaration": false,
+		"listFiles": false,
+		"module": "commonjs",
+		"noImplicitAny": false,
+		"noLib": false,
+		"removeComments": true,
+		"sourceMap": true,
+		"target": "ES5"
+	}
+}
