@@ -22,3 +22,10 @@ server.route([
 		}
 	}
 ]);
+
+server.start(function (err: any) {
+  if (err) {
+    throw err;
+  }
+  console.log('hapi server started');
+});
