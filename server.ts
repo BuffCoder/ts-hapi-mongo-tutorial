@@ -34,7 +34,7 @@ server.route([
 		method: 'POST',
 		path: '/user',
 		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-			
+			reply('You posted: ' + JSON.stringify(request.payload));
 		},
 		config: {
 			validate: {
@@ -49,11 +49,11 @@ server.route([
 		method: 'GET',
 		path: '/user/{username}',
 		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-			
+			reply('You are looking for username: ' + request.params['username']);
 		},
 		config: {
 			validate: {
-				query: {
+				params: {
 					username: Joi.string()
 				}
 			}
