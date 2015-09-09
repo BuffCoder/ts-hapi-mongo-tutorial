@@ -1,6 +1,7 @@
 /// <reference path="./typings/tsd.d.ts" />
 import Hapi = require('hapi');
 import Joi = require('joi');
+import ServerRoutes = require('./routes/ServerRoutes');
 
 let server: Hapi.Server = new Hapi.Server();
 
@@ -15,51 +16,7 @@ server.ext('onRequest', function(request: Hapi.Request, reply: Hapi.IReply) {
   reply.continue();
 });
 
-server.route([
-	{
-		method: 'GET',
-		path: '/',
-		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-			reply('This is the base route: GET');
-		}
-	},
-	{
-		method: 'GET',
-		path: '/users',
-		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-			reply('This is the /users route: GET');
-		}
-	},
-	{
-		method: 'POST',
-		path: '/user',
-		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-			reply('You posted: ' + JSON.stringify(request.payload));
-		},
-		config: {
-			validate: {
-				payload: {
-					username: Joi.string(),
-					age: Joi.number().integer()
-				}
-			}
-		}
-	},
-	{
-		method: 'GET',
-		path: '/user/{username}',
-		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-			reply('You are looking for username: ' + request.params['username']);
-		},
-		config: {
-			validate: {
-				params: {
-					username: Joi.string()
-				}
-			}
-		}
-	},
-]);
+ServerRoutes.RegisterRoutes(server);
 
 server.start(function (err: any) {
   if (err) {
