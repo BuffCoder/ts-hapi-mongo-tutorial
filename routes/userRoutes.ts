@@ -1,22 +1,19 @@
 /// <reference path="../typings/tsd.d.ts" />
 import Hapi = require('hapi');
 import Joi = require('joi');
+import UserController = require('../controllers/userControllers');
 
 export function RegisterRoutes(server: Hapi.Server): void {
 	let routes: Hapi.IRouteConfiguration[] = [
 		{
 			method: 'GET',
 			path: '/users',
-			handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-				reply('This is the /users route: GET');
-			}
+			handler: UserController.listUsersHandler
 		},
 		{
 			method: 'POST',
 			path: '/user',
-			handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-				reply('You posted: ' + JSON.stringify(request.payload));
-			},
+			handler: UserController.postUsersHandler,
 			config: {
 				validate: {
 					payload: {
@@ -29,9 +26,7 @@ export function RegisterRoutes(server: Hapi.Server): void {
 		{
 			method: 'GET',
 			path: '/user/{username}',
-			handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-				reply('You are looking for username: ' + request.params['username']);
-			},
+			handler: UserController.getUserHandler,
 			config: {
 				validate: {
 					params: {
