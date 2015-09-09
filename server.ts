@@ -1,6 +1,8 @@
-import hapi = require('hapi');
+/// <reference path="./typings/tsd.d.ts" />
+import Hapi = require('hapi');
+import Joi = require('joi');
 
-let server: hapi.Server = new hapi.Server();
+let server: Hapi.Server = new Hapi.Server();
 
 server.connection({
 	port: 3000,
@@ -8,7 +10,7 @@ server.connection({
 	labels: ['web']
 });
 
-server.ext('onRequest', function(request: hapi.Request, reply: hapi.IReply) {
+server.ext('onRequest', function(request: Hapi.Request, reply: Hapi.IReply) {
   console.log(request.path);
   reply.continue();
 });
@@ -17,10 +19,46 @@ server.route([
 	{
 		method: 'GET',
 		path: '/',
-		handler: function(request: hapi.Request, reply: hapi.IReply) {
+		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
 			reply('This is the base route: GET');
 		}
-	}
+	},
+	{
+		method: 'GET',
+		path: '/users',
+		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
+			reply('This is the /users route: GET');
+		}
+	},
+	{
+		method: 'POST',
+		path: '/user',
+		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
+			
+		},
+		config: {
+			validate: {
+				payload: {
+					username: Joi.string(),
+					age: Joi.number().integer()
+				}
+			}
+		}
+	},
+	{
+		method: 'GET',
+		path: '/user/{username}',
+		handler: function(request: Hapi.Request, reply: Hapi.IReply) {
+			
+		},
+		config: {
+			validate: {
+				query: {
+					username: Joi.string()
+				}
+			}
+		}
+	},
 ]);
 
 server.start(function (err: any) {

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/BrandonCKrueger/ts-hapi-mongo-tutorial#readme",
   "dependencies": {
-    "hapi": "^8.8.1"
+    "hapi": "^8.8.1",
+    "joi": "^6.6.1"
   }
 }
